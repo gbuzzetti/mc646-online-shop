@@ -379,29 +379,6 @@ public class ProductServiceTest {
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("rating")));
     }
 
-    // TC14: Invalid case - Rating decimal (5.5)
-    /*@Test
-    @Tag("TC14")
-    public void testInvalidCase_TC14_RatingDecimal() {
-        Product product = createProductSample(
-            14L,
-            "Valid Title",
-            null,
-            null,
-            5.5,
-            0,
-            null,
-            new BigDecimal("1.00"),
-            ProductStatus.IN_STOCK,
-            null,
-            Instant.now()
-        );
-        
-        Set<ConstraintViolation<Product>> violations = validator.validate(product);
-        assertFalse(violations.isEmpty());
-        assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("rating")));
-    }*/
-
     // TC15: Invalid case - Price null
     @Test
     @Tag("TC15")
@@ -472,7 +449,7 @@ public class ProductServiceTest {
     }
 
     // TC18: Invalid case - Quantity null
-    /*@Test
+    @Test
     @Tag("TC18")
     public void testInvalidCase_TC18_QuantityNull() {
         Product product = createProductSample(
@@ -481,7 +458,7 @@ public class ProductServiceTest {
             null,
             null,
             null,
-            null, // invalid
+            null,
             null,
             new BigDecimal("1.00"),
             ProductStatus.IN_STOCK,
@@ -492,7 +469,7 @@ public class ProductServiceTest {
         Set<ConstraintViolation<Product>> violations = validator.validate(product);
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("quantityInStock")));
-    }*/
+    }
 
     // TC19: Invalid case - Quantity negative (-1)
     @Test
@@ -539,29 +516,6 @@ public class ProductServiceTest {
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("status")));
     }
-
-    // TC21: Invalid case - Status invalid ("AVAILABLE")
-    /*@Test
-    @Tag("TC21")
-    public void testInvalidCase_TC21_StatusInvalid() {
-        Product product = createProductSample(
-            2L,
-            "Valid Title",
-            null,
-            null,
-            null,
-            0,
-            null,
-            new BigDecimal("1.00"),
-            "AVAILABLE", // invalid
-            null,
-            Instant.now()
-        );
-
-        Set<ConstraintViolation<Product>> violations = validator.validate(product);
-        assertFalse(violations.isEmpty());
-        assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("status")));
-    }*/
 
     // TC22: Invalid case - Weight negative (-0.01)
     @Test
@@ -630,52 +584,5 @@ public class ProductServiceTest {
         Set<ConstraintViolation<Product>> violations = validator.validate(product);
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("dateAdded")));
-    }
-
-    // TC25: Invalid case - DateAdded future
-    /*@Test
-    @Tag("TC25")
-    public void testInvalidCase_TC25_DateAddedFuture() {
-        Product product = createProductSample(
-            25L,
-            "Valid Title",
-            null,
-            null,
-            null,
-            0,
-            null,
-            new BigDecimal("1.00"),
-            ProductStatus.IN_STOCK,
-            null,
-            Instant.now().plusSeconds(86400) // future date - invalid
-        );
-
-        Set<ConstraintViolation<Product>> violations = validator.validate(product);
-        assertFalse(violations.isEmpty());
-        assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("dateAdded")));
-    }*/
-
-    // TC26: Invalid case - DateAdded invalid
-    @Test
-    @Tag("TC26")
-    public void testInvalidCase_TC26_DateAddedInvalid() {
-        // This would be tested at the API level when parsing date strings
-        // Domain level uses Instant which only accepts valid dates
-    }
-
-    // TC27: Invalid case - DateModified future
-    @Test
-    @Tag("TC27")
-    public void testInvalidCase_TC27_DateModifiedFuture() {
-        // DateModified is not included in the createProductSample method
-        // This would need to be tested separately if the domain model includes it
-    }
-
-    // TC28: Invalid case - DateModified invalid
-    @Test
-    @Tag("TC28")
-    public void testInvalidCase_TC28_DateModifiedInvalid() {
-        // DateModified is not included in the createProductSample method
-        // This would need to be tested separately if the domain model includes it
     }
 }
